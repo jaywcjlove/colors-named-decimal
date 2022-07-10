@@ -1,6 +1,6 @@
 {
   "name": "colors-named-decimal",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A array with color name -> decimal rgb.",
   "author": "Kenny Wang<wowohoo@qq.com>",
   "license": "MIT",
