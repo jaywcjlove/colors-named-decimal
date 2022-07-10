@@ -22,7 +22,7 @@ jobs:
         uses: jaywcjlove/markdown-to-html-cli@main
         with:
           output: coverage/index.html
-          github-corners: https://github.com/jaywcjlove/colors-named-hex
+          github-corners: https://github.com/jaywcjlove/colors-named-decimal
           favicon: data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>
 
       - name: Create Coverage Badges
@@ -37,3 +37,82 @@ jobs:
           filter-author: (renovate\[bot\]|renovate-bot|dependabot\[bot\])
           output: coverage/CONTRIBUTORS.svg
           avatarSize: 42
+
+      - name: Create Tag
+        id: create_tag
+        uses: jaywcjlove/create-tag-action@v1.3.8
+        with:
+          package-path: ./package.json
+
+      - name: get tag version
+        id: tag_version
+        uses: jaywcjlove/changelog-generator@v1.5.7
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          commit_message: ${{steps.tag_version.outputs.tag}} ${{ github.event.head_commit.message }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./coverage
+
+      - name: Generate Changelog
+        id: changelog
+        uses: jaywcjlove/changelog-generator@v1.5.7
+        with:
+          head-ref: ${{steps.create_tag.outputs.version}}
+          filter-author: (renovate-bot|Renovate Bot)
+          filter: '[R|r]elease[d]\s+[v|V]\d(\.\d+){0,2}'
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1
+        if: steps.create_tag.outputs.successful
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          name: ${{ steps.create_tag.outputs.version }}
+          tag: ${{ steps.create_tag.outputs.version }}
+          body: |
+            [![](https://img.shields.io/badge/Open%20in-unpkg-blue)](https://jaywcjlove.github.io/npm-unpkg/#/pkg/@uiw/colors-named-decimal@${{steps.changelog.outputs.version}}/file/README.md)
+            
+            Documentation ${{ steps.changelog.outputs.tag }}: https://raw.githack.com/jaywcjlove/colors-named-decimal/${{ steps.changelog.outputs.gh-pages-short-hash }}/index.html  
+            Comparing Changes: ${{ steps.changelog.outputs.compareurl }}  
+
+            ```shell
+            npm i colors-named-decimal@${{steps.create_tag.outputs.versionNumber}}
+            ```
+
+            ${{ steps.changelog.outputs.changelog }}
+
+      - name: 📦 colors-named-decimal publish to NPM
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./package.json
+
+    outputs:
+      successful: ${{steps.create_tag.outputs.successful }}
+
+  github-package:
+    runs-on: ubuntu-18.04
+    needs: build-deploy
+    if: needs.build-deploy.outputs.successful
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com
+          scope: '@jaywcjlove'
+
+      - run: npm install
+      - run: npm run build
+
+      - name: "Modify colors-named-decimal => @jaywcjlove/colors-named-decimal"
+        uses: jaywcjlove/github-action-package@main
+        with:
+          path: package.json
+          data: |
+            { "name": "@jaywcjlove/colors-named-decimal" }
+
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
