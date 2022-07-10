@@ -6,17 +6,17 @@ colors-named-decimal
 [![npm version](https://img.shields.io/npm/v/colors-named-decimal.svg)](https://www.npmjs.com/package/colors-named-decimal)
 [![Coverage Status](https://jaywcjlove.github.io/colors-named-decimal/badges.svg)](https://jaywcjlove.github.io/colors-named-decimal/lcov-report/)
 
-A array with color name -> decimal rgbs. Based on https://www.w3.org/TR/css-color-4/#colors-named
+An array with color name -> decimal RGBs. Based on https://www.w3.org/TR/css-color-4/#colors-named
 
 ## Installation
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c): Node 12+ is needed to use it and it must be import instead of require.
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c): Node 12+ is needed to use it and it must be imported instead of required.
 
 ```bash
 npm install colors-named-decimal
 ```
 
-If you still want to use in CommonJS, you can use dynamic `import()` to load.
+If you still want to use it in CommonJS, you can use dynamic `import()` to load.
 
 ```js
 const named = await import('colors-named-decimal');
