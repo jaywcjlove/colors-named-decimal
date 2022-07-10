@@ -10,7 +10,7 @@ An array with color name -> decimal RGBs. Based on https://www.w3.org/TR/css-col
 
 ## Installation
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c): Node 12+ is needed to use it and it must be imported instead of required.
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c): Node 12+ is needed to use it and it must be import instead of require.
 
 ```bash
 npm install colors-named-decimal
