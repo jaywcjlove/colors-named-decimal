@@ -1,0 +1,54 @@
+{
+  "name": "colors-named-decimal",
+  "version": "0.0.1",
+  "description": "A array with color name -> decimal rgb.",
+  "author": "Kenny Wang<wowohoo@qq.com>",
+  "license": "MIT",
+  "type": "module",
+  "types": "./lib/index.d.ts",
+  "exports": "./lib/index.js",
+  "homepage": "https://jaywcjlove.github.io/colors-named-decimal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaywcjlove/colors-named-decimal"
+  },
+  "scripts": {
+    "prepack": "husky install && npm run build",
+    "start": "tsbb watch --disable-babel",
+    "build": "tsbb build --disable-babel",
+    "type-check": "tsc --noEmit",
+    "test": "tsbb test",
+    "coverage": "tsbb test --coverage",
+    "prettier": "prettier --write \"**/*.{js,ts,json}\""
+  },
+  "keywords": [
+    "decimal",
+    "color",
+    "colors",
+    "colors-named-decimal",
+    "colors-named",
+    "named"
+  ],
+  "files": [
+    "src/index.ts",
+    "lib"
+  ],
+  "jest": {
+    "transformIgnorePatterns": [
+      "<rootDir>/node_modules/?!(.*)"
+    ]
+  },
+  "engines": {
+    "node": ">=14.16"
+  },
+  "lint-staged": {
+    "*.{js,ts,json}": "prettier --write"
+  },
+  "devDependencies": {
+    "colors-named": "^1.0.0",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
+    "prettier": "^2.7.1",
+    "tsbb": "~3.7.6"
+  }
+}

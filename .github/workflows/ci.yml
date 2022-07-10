@@ -1,0 +1,39 @@
+name: CI
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - run: npm install
+      - run: npm run build
+      - run: npm run type-check
+      - run: npm run coverage
+
+      - name: Converts Markdown to HTML
+        uses: jaywcjlove/markdown-to-html-cli@main
+        with:
+          output: coverage/index.html
+          github-corners: https://github.com/jaywcjlove/colors-named-hex
+          favicon: data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎨</text></svg>
+
+      - name: Create Coverage Badges
+        uses: jaywcjlove/coverage-badges-cli@main
+        with:
+          source: coverage/coverage-summary.json
+          output: coverage/badges.svg
+
+      - name: Generate Contributors Images
+        uses: jaywcjlove/github-action-contributors@main
+        with:
+          filter-author: (renovate\[bot\]|renovate-bot|dependabot\[bot\])
+          output: coverage/CONTRIBUTORS.svg
+          avatarSize: 42
