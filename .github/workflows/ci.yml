@@ -6,12 +6,13 @@ on:
 
 jobs:
   build-deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: 'https://registry.npmjs.org'
 
       - run: npm install
       - run: npm run build
@@ -40,13 +41,13 @@ jobs:
 
       - name: Create Tag
         id: create_tag
-        uses: jaywcjlove/create-tag-action@v1.3.8
+        uses: jaywcjlove/create-tag-action@main
         with:
           package-path: ./package.json
 
       - name: get tag version
         id: tag_version
-        uses: jaywcjlove/changelog-generator@v1.5.7
+        uses: jaywcjlove/changelog-generator@main
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
@@ -57,7 +58,7 @@ jobs:
 
       - name: Generate Changelog
         id: changelog
-        uses: jaywcjlove/changelog-generator@v1.5.7
+        uses: jaywcjlove/changelog-generator@main
         with:
           head-ref: ${{steps.create_tag.outputs.version}}
           filter-author: (renovate-bot|Renovate Bot)
@@ -82,17 +83,17 @@ jobs:
 
             ${{ steps.changelog.outputs.changelog }}
 
-      - name: 📦 colors-named-decimal publish to NPM
-        uses: JS-DevTools/npm-publish@v1
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          package: ./package.json
+      - run: npm publish
+        name: 📦 colors-named-decimal publish to NPM
+        continue-on-error: true
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
     outputs:
       successful: ${{steps.create_tag.outputs.successful }}
 
   github-package:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     needs: build-deploy
     if: needs.build-deploy.outputs.successful
     steps:
@@ -114,5 +115,7 @@ jobs:
             { "name": "@jaywcjlove/colors-named-decimal" }
 
       - run: npm publish
+        name: 📦 @jaywcjlove/colors-named-decimal publish to NPM
+        continue-on-error: true
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
