@@ -32,6 +32,7 @@ jobs:
       - run: npm install idoc@1.26.6 -g
       - run: idoc
 
+      - run: cp -rp coverage/lcov-report dist
       # - name: Converts Markdown to HTML
       #   uses: jaywcjlove/markdown-to-html-cli@main
       #   with:
