@@ -24,9 +24,9 @@ jobs:
           cat > idoc.yml << EOF
           site: "Colors Named Decimal {{version}}"
           menus:
-            Home: index.html
-            Named: https://jaywcjlove.github.io/colors-named/
+            Decimal: index.html
             Hex: https://jaywcjlove.github.io/colors-named-hex/
+            Named: https://jaywcjlove.github.io/colors-named/
           EOF
 
       - run: npm install idoc@1.26.6 -g
