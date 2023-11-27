@@ -8,6 +8,7 @@
   "types": "./lib/index.d.ts",
   "exports": "./lib/index.js",
   "homepage": "https://jaywcjlove.github.io/colors-named-decimal",
+  "funding": "https://jaywcjlove.github.io/#/sponsor",
   "repository": {
     "type": "git",
     "url": "https://github.com/jaywcjlove/colors-named-decimal"
