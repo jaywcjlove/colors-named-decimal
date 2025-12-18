@@ -84,23 +84,23 @@ console.log(decimal.length)   // => 148
 ```
 
 ```js
-'colors-named'                'colors-named-hex'          'colors-named-decimal'
-===============              ===================         =====================
-const named = [                const hexs = [             const hexs = [
-  'aliceblue',         ->        '#F0F8FF',       ->        [240, 248, 255],
-  'antiquewhite',      ->        '#FAEBD7',       ->        [250, 235, 215],
-  'aqua',              ->        '#00FFFF',       ->        [0, 255, 255],
-  'aquamarine',        ->        '#7FFFD4',       ->        [127, 255, 212],
-  'azure',             ->        '#F0FFFF',       ->        [240, 255, 255],
-  'beige',             ->        '#F5F5DC',       ->        [245, 245, 220],
-  'bisque',            ->        '#FFE4C4',       ->        [255, 228, 196],
-  'black',             ->        '#000000',       ->        [0, 0, 0],
-  'blanchedalmond',    ->        '#FFEBCD',       ->        [255, 235, 205],
-  'blue',              ->        '#0000FF',       ->        [0, 0, 255],
-  'blueviolet',        ->        '#8A2BE2',       ->        [138, 43, 226],
-  'brown',             ->        '#A52A2A',       ->        [165, 42, 42],
-  ...                  ->        ...              ->        ...
-];                             ];                         ];
+'colors-named'             'colors-named-hex'     'colors-named-decimal'
+===============           ===================    =====================
+const named = [           const hexs = [         const hexs = [
+  'aliceblue',       ->     '#F0F8FF',    ->      [240, 248, 255],
+  'antiquewhite',    ->     '#FAEBD7',    ->      [250, 235, 215],
+  'aqua',            ->     '#00FFFF',    ->      [0, 255, 255],
+  'aquamarine',      ->     '#7FFFD4',    ->      [127, 255, 212],
+  'azure',           ->     '#F0FFFF',    ->      [240, 255, 255],
+  'beige',           ->     '#F5F5DC',    ->      [245, 245, 220],
+  'bisque',          ->     '#FFE4C4',    ->      [255, 228, 196],
+  'black',           ->     '#000000',    ->      [0, 0, 0],
+  'blanchedalmond',  ->     '#FFEBCD',    ->      [255, 235, 205],
+  'blue',            ->     '#0000FF',    ->      [0, 0, 255],
+  'blueviolet',      ->     '#8A2BE2',    ->      [138, 43, 226],
+  'brown',           ->     '#A52A2A',    ->      [165, 42, 42],
+  ...                ->     ...             ->      ...
+];                        ];                     ];
 ```
 
 ```js
@@ -121,7 +121,8 @@ hexs[named.indexOf('black')]     // => #000000
 
 ```ts
 /**
- * A array with color name -> decimal rgbs. Based on https://www.w3.org/TR/css-color-4/#colors-named
+ * A array with color name -> decimal rgbs. 
+ * Based on https://www.w3.org/TR/css-color-4/#colors-named
  */
 declare const decimal: number[][];
 export default decimal;
