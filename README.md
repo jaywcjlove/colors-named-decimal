@@ -84,8 +84,8 @@ console.log(decimal.length)   // => 148
 ```
 
 ```js
-'colors-named'             'colors-named-hex'     'colors-named-decimal'
-===============           ===================    =====================
+// 'colors-named'         'colors-named-hex'     'colors-named-decimal'
+// ==============         ===================    =====================
 const named = [           const hexs = [         const hexs = [
   'aliceblue',       ->     '#F0F8FF',    ->      [240, 248, 255],
   'antiquewhite',    ->     '#FAEBD7',    ->      [250, 235, 215],
